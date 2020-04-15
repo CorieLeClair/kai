@@ -3,4 +3,7 @@
 *.gradle linguist-detectable=false
 *.sh linguist-detectable=false
 src/main/kotlin/kai/kaibrain/pai/python/interp/win/* linguist-vendored=true
+src/main/kotlin/kai/kaibrain/pai/python/interp/win/Lib/* linguist-vendored=true
+src/main/kotlin/kai/kaibrain/pai/python/interp/win/tcl/* linguist-vendored=true
+build/scripts/* linguist-vendored=true
 .gradle/* linguist-vendored=true
