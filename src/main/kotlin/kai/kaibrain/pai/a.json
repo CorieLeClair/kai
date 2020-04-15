@@ -1,0 +1,23 @@
+{
+  "config": {
+    "brain_file_type": "chat_file"
+  },
+  "messages": {
+    "brandon": [
+      {
+        "message_contain_type": "Statement",
+        "message_contain_string": "brandon",
+        "message_result_string": "leclair",
+        "message_result_type": "Statement"
+      }
+    ],
+    "corie": [
+      {
+        "message_contain_type": "Statement",
+        "message_contain_string": "corie",
+        "message_result_string": "leclair",
+        "message_result_type": "Statement"
+      }
+    ]
+  }
+}
