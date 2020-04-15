@@ -1,0 +1,2 @@
+*.kt linguist-detectable=true
+src/main/kotlin/kai/kaibrain/pai/python/interp/win/* linguist-vendored=true
