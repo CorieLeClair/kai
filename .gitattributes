@@ -1,5 +1,5 @@
 *.kt linguist-detectable=true
-*.bat linguist-detectable=true
-*.gradle linguist-detectable=true
-*.sh linguist-detectable=true
+*.bat linguist-detectable=false
+*.gradle linguist-detectable=false
+*.sh linguist-detectable=false
 src/main/kotlin/kai/kaibrain/pai/python/interp/win/* linguist-vendored=true
