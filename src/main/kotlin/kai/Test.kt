@@ -6,7 +6,6 @@ import java.io.File
 fun main(){
     // files from the KaiPy GUI // brain files // json files
     KaiConfig.Kai().defineConversationDirectory(File("C:\\Users\\corie\\OneDrive\\Documents\\KaiCompanion\\documents"))
-    KaiConfig.Kai().enableAutoThink(true)
 
 
     while(true){
