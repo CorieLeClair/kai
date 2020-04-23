@@ -5,6 +5,7 @@ import kai.utils.GeneralUtils
 import kai.kaibrain.KaiBrainGeneral
 import kai.configuration.kaiInformation
 import kai.kaibrain.BrainClasses
+import kai.utils.MessageType
 
 internal class Conversation() {
 
@@ -14,10 +15,10 @@ internal class Conversation() {
     var counterRun = 0
 
 
-    internal fun conversation() {
+    internal fun conversation() : Boolean{
 
         val input = kaiInformation.input
-        val files = GeneralUtils().getSpecificFiles(kaiInformation.conversationDirectory, ".json")
+        val files = GeneralUtils().getManualFiles( ".json")
 
         fun collectFile(): Boolean {
             return files.count() > counterFile
@@ -40,8 +41,10 @@ internal class Conversation() {
                     break
                 } else {
                     if (counterInputIndex >= KaiBrainGeneral.BrainMessageInformation().getListOfMessages(files[counterFile]).count() - 1) {
+                        println(MessageType().returnQuestionType(input))
                         counterInputIndex = 0
                         counterFile++
+
                     } else {
                         counterInputIndex++
                     }
@@ -52,5 +55,7 @@ internal class Conversation() {
 
         resetCounter()
         kaiInformation.kaiResponse = collectResultChatBroad()
+
+        return kaiInformation.kaiResponse != "I'm not sure what you mean. I am sorry."
     }
 }

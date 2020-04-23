@@ -1,9 +1,12 @@
-package kai.kaibrain.enums
+package kai.kaibrain
 
-internal enum class BrainFileType{
-    ChatFile, ArticleOpinionFile, UnknownCorrupt
-}
+internal class BrainClasses() {
 
-public enum class BrainReturnMessageInfo{
-    MessageInputType, MessageResultType, MessageInput, MessageResult
+    internal enum class BrainFileType {
+        ChatFile, ArticleOpinionFile, UnknownCorrupt
+    }
+
+    public enum class BrainReturnMessageInfo {
+        MessageInputType, MessageResultType, MessageInput, MessageResult, All
+    }
 }

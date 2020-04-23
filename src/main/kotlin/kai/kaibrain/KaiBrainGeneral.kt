@@ -1,6 +1,5 @@
 package kai.kaibrain
 
-import kai.configuration.kaiInformation
 import kai.utils.GeneralUtils
 import org.apache.commons.io.FileUtils
 import org.json.JSONObject
@@ -13,6 +12,9 @@ internal class KaiBrainGeneral {
         fun getMessageInformation(input: String, jsonFile: File, returnType: BrainClasses.BrainReturnMessageInfo) = KaiBrainGeneral().kaiGetMessageInformation(input, jsonFile, returnType)
         fun getListOfMessages(jsonFile: File) = KaiBrainGeneral().kaiGetMessageList(jsonFile)
         fun getAllStatements() = KaiBrainGeneral().kaiGetAllStatements()
+        fun getAllMessages() = KaiBrainGeneral().kaiGetAllMessages()
+        fun getAllResultMessagesSpec(files : ArrayList<File>) = KaiBrainGeneral().kaiGetAllResultMessagesSpecFiles(files)
+        fun getAllContainMessagesSpec(files : ArrayList<File>) = KaiBrainGeneral().kaiGetAllContainMessagesSpecFiles(files)
         fun getRandomStatement(): String {
             return KaiBrainGeneral().kaiGetAllStatements().random().toString().replace("[", "").replace("]", "")
         }
@@ -73,11 +75,20 @@ internal class KaiBrainGeneral {
                     "null"
                 }
             }
+
+            BrainClasses.BrainReturnMessageInfo.Desc ->{
+                return try {
+                    jsonMessages.getJSONArray(input).getJSONObject(0).get("desc").toString()
+                } catch (e: Exception) {
+                    println(e.printStackTrace())
+                    "null"
+                }
+            }
         }
     }
 
     internal fun kaiGetAllStatements(): ArrayList<String> {
-        val fileList = GeneralUtils().getSpecificFiles(kaiInformation.conversationDirectory, ".json")
+        val fileList = GeneralUtils().getManualFiles(".json")
         val list = arrayListOf<String>()
 
         for (file in fileList) {
@@ -93,13 +104,39 @@ internal class KaiBrainGeneral {
     }
 
     internal fun kaiGetAllMessages(): ArrayList<String> {
-        val fileList = GeneralUtils().getSpecificFiles(kaiInformation.conversationDirectory, ".json")
+        val fileList = GeneralUtils().getManualFiles(".json")
         val list = arrayListOf<String>()
 
         for (file in fileList) {
 
             for (item in kaiGetMessageList(file)) {
                 list.add(kaiGetMessageInformation(item.toString(), file, BrainClasses.BrainReturnMessageInfo.MessageResult))
+            }
+        }
+
+        return GeneralUtils().stringToList(list.toString().replace("\n", ""), ",", -1)
+    }
+
+    internal fun kaiGetAllResultMessagesSpecFiles(files : ArrayList<File>) : ArrayList<String>{
+        val list = arrayListOf<String>()
+
+        for (file in files) {
+
+            for (item in kaiGetMessageList(file)) {
+                list.add(kaiGetMessageInformation(item.toString(), file, BrainClasses.BrainReturnMessageInfo.MessageResult))
+            }
+        }
+
+        return GeneralUtils().stringToList(list.toString().replace("\n", ""), ",", -1)
+    }
+
+    internal fun kaiGetAllContainMessagesSpecFiles(files : ArrayList<File>) : ArrayList<String>{
+        val list = arrayListOf<String>()
+
+        for (file in files) {
+
+            for (item in kaiGetMessageList(file)) {
+                list.add(kaiGetMessageInformation(item.toString(), file, BrainClasses.BrainReturnMessageInfo.MessageInput))
             }
         }
 

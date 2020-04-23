@@ -1,40 +1,24 @@
 package kai.kaibrain
 
-import kai.kaibrain.pai.PaiServer
-import org.json.JSONObject
+import kai.paibrain.PaiServer
 import py4j.Py4JNetworkException
 import java.lang.Exception
 
-class KaiTrainer(){
+public class KaiTrainer(){
+    /** Train off of chat messages **/
     class KaiChatTrainer() {
-
-        /** StartTrainingServer() will start the server for training **/
-        fun startTrainingServer() {
-            try {
-                PaiServer.TrainChatServer().startTrainServer()
-            } catch(exception: Py4JNetworkException){
-                println("The server is already")
-            }
-        }
-
         /** Will train, StartTrainingServer() needs to be called first. **/
         fun kaiTrainChat(dict: HashMap<String, String>, fileResult: String) {
             PaiServer.TrainChatServer().startChatTraining(dict, fileResult)
         }
 
-        fun killTrainingServer(){
-            PaiServer.TrainChatServer().killTrainServer()
-        }
-
     }
 
+    /** Train off of sentiment values 1 to 10 **/
     class KaiSentimentTrainer(){
 
         fun startTrainer(noun : String, scale : Int, resultFile : String){
 
-            if(!KaiSpeechTagging().isNoun(noun)){
-                throw(Exception("The input is not a noun."))
-            }
 
             if(scale > 10 || scale < 0){
                 when{
@@ -66,7 +50,6 @@ class KaiTrainer(){
                 }
             }
 
-            KaiChatTrainer().startTrainingServer()
             KaiChatTrainer().kaiTrainChat(dict, resultFile)
         }
     }

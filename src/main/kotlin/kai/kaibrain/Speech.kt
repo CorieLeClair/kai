@@ -1,6 +1,6 @@
 package kai.kaibrain
 
-import kai.kaibrain.pai.PaiServer
+import kai.paibrain.PaiServer
 
 class KaiSpeech {
     fun speak(words : String){
