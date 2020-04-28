@@ -14,29 +14,34 @@ private val paiInformation = PaiInformation("default.json", HashMap(), false,  "
 internal data class KaiSpeechInformation(var words : String)
 private val kaiSpeechInformation = KaiSpeechInformation("hello")
 
+internal data class KaiListenInformation(var words : String)
+private val kaiListenInformation = KaiSpeechInformation("hello")
+
+
 /** Pai Will More Than Likely not Work On Mobile Systems. For use on Windows, Linux, BSD, and Mac.
  * Pai Server will create connections with Python to execute tasks.**/
 internal class PaiServer(){
     internal val trainServerGateway = GatewayServer.GatewayServerBuilder().javaPort(1000).build()
     internal val speechServerGateway = GatewayServer.GatewayServerBuilder().javaPort(1001).build()
     internal val autoThinkServerGateway = GatewayServer.GatewayServerBuilder().javaPort(1002).build()
+    internal val listenServerGateway = GatewayServer.GatewayServerBuilder().javaPort(1003).build()
 
     internal val winPython = "${kaiInformation.pythonDirectory}\\interp\\win\\python.exe"
     internal val scriptTrainChat = "${kaiInformation.pythonDirectory}/chat_file/train_chat_files.py"
     internal val scriptAutoThink = "${kaiInformation.pythonDirectory}/autothink/auto_think.py"
     internal val scriptSpeechSpeak = "${kaiInformation.pythonDirectory}/speech/speech.py"
+    internal val scriptSpeechListen = "${kaiInformation.pythonDirectory}/speech/listen.py"
 
     class TrainChatServer(){
-        private fun startTrainServer(){
+        fun startTrainServer(){
             try{
                 PaiServer().trainServerGateway.start()
             } catch (ex : Py4JNetworkException){
-                killTrainServer()
-                startTrainServer()
+                // do nothing
             }
         }
 
-        private fun killTrainServer(){
+        fun killTrainServer(){
             try{
                 PaiServer().trainServerGateway.shutdown()
             } catch (ex : Py4JNetworkException){
@@ -45,11 +50,10 @@ internal class PaiServer(){
         }
 
         fun startChatTraining(dict : HashMap<String, String>, fileResult : String){
-            startTrainServer()
             paiInformation.fileResult = fileResult
             paiInformation.dict = dict
             val p = Runtime.getRuntime().exec("${PaiServer().winPython} ${PaiServer().scriptTrainChat}")
-            killTrainServer()
+            //killTrainServer()
         }
 
         fun getDict() : HashMap<String, String>{
@@ -61,7 +65,7 @@ internal class PaiServer(){
         }
 
         fun finished(text: String){
-            println("FINSIHED WHORE")
+            println("Finished")
             println(text)
         }
     }
@@ -74,7 +78,6 @@ internal class PaiServer(){
         fun startSpeech(text : String){
             kaiSpeechInformation.words = text
             val p = Runtime.getRuntime().exec("${PaiServer().winPython} ${PaiServer().scriptSpeechSpeak}")
-
         }
 
         fun getWords() : String{
@@ -86,13 +89,55 @@ internal class PaiServer(){
         }
     }
 
+    class ListenServer(){
+        var words = ""
+        var booleanFinished = false
+
+        fun startServer(){
+            PaiServer().listenServerGateway.start()
+        }
+
+        fun killServer(){
+            PaiServer().listenServerGateway.shutdown()
+        }
+
+        fun listen() : String{
+            val p = Runtime.getRuntime().exec("${PaiServer().winPython} ${PaiServer().scriptSpeechListen}")
+            while (p.isAlive){
+
+            }
+            return kaiListenInformation.words
+        }
+
+        fun finished(){
+            kaiListenInformation.words = ""
+        }
+
+        fun getReturnedSpeak(text : String){
+            words = text
+
+            kaiListenInformation.words = text
+            //().killSpeechServer()
+        }
+
+    }
+
     class AutoThinkServer(){
         fun startAutoThinkServer(){
-            PaiServer().autoThinkServerGateway.start()
+            try{
+                PaiServer().autoThinkServerGateway.start()
+            } catch (ex : Py4JNetworkException){
+                killAutoThinkServer()
+                startAutoThinkServer()
+            }
         }
 
         fun killAutoThinkServer(){
-            PaiServer().autoThinkServerGateway.start()
+            try{
+                PaiServer().autoThinkServerGateway.shutdown()
+            } catch (ex : Py4JNetworkException){
+                // do nothing
+            }
         }
 
         fun startThinking(){

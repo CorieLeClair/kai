@@ -11,7 +11,6 @@ internal class MessageType{
     }
 
     fun returnQuestionType(message : String) : BrainClasses.MessageType.Question{
-        println(message)
         val listQuestionKeySymbols001 = arrayListOf<String>("how do you feel", "do you like", "do you enjoy", "are you enjoy", "how is")
         val listQuestionKeySymbols002 = arrayListOf<String>("what is", "what are")
         val listQuestionKeySymbols003 = arrayListOf<String>("who is", "who are")

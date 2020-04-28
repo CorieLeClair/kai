@@ -6,15 +6,16 @@ import org.json.JSONObject
 import org.json.JSONArray
 import java.io.File
 
-internal class KaiBrainGeneral {
+ class KaiBrainGeneral {
 
-    internal class BrainMessageInformation() {
+    class BrainMessageInformation() {
         fun getMessageInformation(input: String, jsonFile: File, returnType: BrainClasses.BrainReturnMessageInfo) = KaiBrainGeneral().kaiGetMessageInformation(input, jsonFile, returnType)
         fun getListOfMessages(jsonFile: File) = KaiBrainGeneral().kaiGetMessageList(jsonFile)
         fun getAllStatements() = KaiBrainGeneral().kaiGetAllStatements()
         fun getAllMessages() = KaiBrainGeneral().kaiGetAllMessages()
         fun getAllResultMessagesSpec(files : ArrayList<File>) = KaiBrainGeneral().kaiGetAllResultMessagesSpecFiles(files)
         fun getAllContainMessagesSpec(files : ArrayList<File>) = KaiBrainGeneral().kaiGetAllContainMessagesSpecFiles(files)
+        fun getMessgesDict(jsonFile : File) = KaiBrainGeneral().kaiGetMessagesDict(jsonFile)
         fun getRandomStatement(): String {
             return KaiBrainGeneral().kaiGetAllStatements().random().toString().replace("[", "").replace("]", "")
         }
@@ -62,7 +63,6 @@ internal class KaiBrainGeneral {
                 return try {
                     jsonMessages.getJSONArray(input).getJSONObject(0).get("message_result_string").toString()
                 } catch (e: Exception) {
-                    println(e.printStackTrace())
                     "null"
                 }
             }
@@ -71,7 +71,6 @@ internal class KaiBrainGeneral {
                 return try {
                     jsonMessages.getJSONArray(input).getJSONObject(0).get("message_result_string").toString()
                 } catch (e: Exception) {
-                    println(e.printStackTrace())
                     "null"
                 }
             }
@@ -80,11 +79,21 @@ internal class KaiBrainGeneral {
                 return try {
                     jsonMessages.getJSONArray(input).getJSONObject(0).get("desc").toString()
                 } catch (e: Exception) {
-                    println(e.printStackTrace())
                     "null"
                 }
             }
         }
+    }
+
+    internal fun kaiGetMessagesDict(jsonFile : File) : HashMap<String, String> {
+        val dict = HashMap<String, String>()
+        val messageList =  kaiGetMessageList(jsonFile)
+
+        for(item in messageList){
+            dict[item.toString()] = kaiGetMessageInformation(item.toString(), jsonFile, BrainClasses.BrainReturnMessageInfo.MessageResult)
+        }
+
+        return dict
     }
 
     internal fun kaiGetAllStatements(): ArrayList<String> {
@@ -111,6 +120,7 @@ internal class KaiBrainGeneral {
 
             for (item in kaiGetMessageList(file)) {
                 list.add(kaiGetMessageInformation(item.toString(), file, BrainClasses.BrainReturnMessageInfo.MessageResult))
+                list.add(kaiGetMessageInformation(item.toString(), file, BrainClasses.BrainReturnMessageInfo.MessageInput))
             }
         }
 

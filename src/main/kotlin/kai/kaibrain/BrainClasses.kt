@@ -1,6 +1,6 @@
 package kai.kaibrain
 
-internal class BrainClasses() {
+class BrainClasses() {
 
     internal enum class BrainFileType {
         ChatFile, ArticleOpinionFile, UnknownCorrupt

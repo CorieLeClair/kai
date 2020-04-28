@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\.."
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\KaiCompanion"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true,
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}

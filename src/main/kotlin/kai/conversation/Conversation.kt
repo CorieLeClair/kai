@@ -5,7 +5,7 @@ import kai.utils.GeneralUtils
 import kai.kaibrain.KaiBrainGeneral
 import kai.configuration.kaiInformation
 import kai.kaibrain.BrainClasses
-import kai.utils.MessageType
+
 
 internal class Conversation() {
 
@@ -41,10 +41,8 @@ internal class Conversation() {
                     break
                 } else {
                     if (counterInputIndex >= KaiBrainGeneral.BrainMessageInformation().getListOfMessages(files[counterFile]).count() - 1) {
-                        println(MessageType().returnQuestionType(input))
                         counterInputIndex = 0
                         counterFile++
-
                     } else {
                         counterInputIndex++
                     }

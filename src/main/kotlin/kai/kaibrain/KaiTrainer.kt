@@ -12,6 +12,14 @@ public class KaiTrainer(){
             PaiServer.TrainChatServer().startChatTraining(dict, fileResult)
         }
 
+        fun startTrainingServer(){
+            PaiServer.TrainChatServer().startTrainServer()
+        }
+
+        fun killTrainingServer(){
+            PaiServer.TrainChatServer().killTrainServer()
+        }
+
     }
 
     /** Train off of sentiment values 1 to 10 **/
