@@ -44,7 +44,7 @@ Why will some platforms receive less support?
 
 # Releases
 
-* Beta release of the JAR and GUI Application will be released: 5/1/2020
+* Beta release of the JAR and GUI Application will be released: 6/1/2020
 
 # Examples:
 * The only example currently is https://github.com/CorieLeClair/kai/blob/master/src/main/kotlin/kai/Test.kt
