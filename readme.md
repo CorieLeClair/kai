@@ -1,10 +1,13 @@
 # What is Kai?
-For the most part, Kai is an API for Java/Kotlin written in Kotlin and Python. Kai is a toolset to easily create a chabot & task bot with
+For the most part, Kai is an API for Java/Kotlin written in Kotlin. Kai is a toolset to easily create a chabot & task bot with
 little to no code. 
+
+# News
+Kai no longer uses Python in anyway. The KaiSpeech API has been removed. 
 
 # Support Tier List
 
-* Windows & Linux (All versions that support Python 3.7 & Java)
+* Windows & Linux (All versions that support Java)
 * Android
 * Mac
 * IOS
@@ -14,7 +17,7 @@ Why will some platforms receive less support?
 
 * Windows and Linux are easy to test on, using virtual machines
 * Many operating systems are locked down and are harder to test on
-* Android will be supported once the custom .APK Python is built. There may also be a dedicated Kai.Android.x package coming.
+* Android should be supported out of the box.
 * MacOS & IOS will be difficult to test on, but Mac should be supported.
 
 # What will Kai be able to do?
@@ -35,12 +38,6 @@ Why will some platforms receive less support?
 * Create Java Application on it's own. No need to code!
 * Built in bot tester.
 * Give statistics on best and worst responded
-
-# Python
-
-* Kai uses Python for automation. Using PY4J and the custom version of Python embedded into Kai, PY4J and Kotlin work together to create the brain of Kai.
-
-* This will later add plugin's to Kai, though not yet natively supported.
 
 # Releases
 
